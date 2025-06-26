@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from products.exceptions import QueryIsRequired  
+from products.exceptions import NotFoundByQuery
 from products.infrastructure import ORMProductRepository
 from products.use_cases import ProductParserUseCase
 
@@ -16,5 +17,7 @@ class ProductsView(APIView):
             product_parser.execute(request)
         except QueryIsRequired:
             return Response({'error': 'Query param is required'}, status=status.HTTP_400_BAD_REQUEST)
+        except NotFoundByQuery:
+            return Response({'error': 'Products not found by query'}, status=status.HTTP_404_NOT_FOUND)
         
         return Response({'message': 'Products parsed and created successfully'}, status=status.HTTP_201_CREATED)
