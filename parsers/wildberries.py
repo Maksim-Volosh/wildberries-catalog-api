@@ -2,8 +2,10 @@ import math
 from typing import Any
 import requests
 
+from core.interfaces.parser import IParserProducts
 
-class WildberriesParser:
+
+class WildberriesParser(IParserProducts):
     def __init__(self, url):
         self.url = url
         
@@ -60,9 +62,9 @@ class WildberriesParser:
 
             
 
-wildberries_parser = WildberriesParser("https://search.wb.ru/exactmatch/ru/common/v13/search?dest=-1257786&lang=ru&resultset=catalog&sort=popular&limit=1")
+wildberries_parser = WildberriesParser("https://search.wb.ru/exactmatch/ru/common/v13/search?dest=-1257786&lang=ru&resultset=catalog&sort=popular")
 
 
 # Usage:
-data = wildberries_parser.get_products("тапочки", 3)
-print(data)
+# data = wildberries_parser.get_products("тапочки", 3)
+# print(data)
