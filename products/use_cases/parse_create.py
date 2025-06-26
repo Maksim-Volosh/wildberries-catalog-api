@@ -11,9 +11,7 @@ class ProductParserUseCase:
         self.parser: IParserProducts = parser
         self.repo: IProductRepository = repo
         
-    def execute(self, request) -> None | Literal[False]:
-        query = request.query_params.get("query")
-        pages = request.query_params.get("pages", 1)
+    def execute(self, query: str, pages: int = 1) -> None | Literal[False]:
         if not query:
             raise QueryIsRequired("Query param is required")
         products = self.parser.get_products(query=query, pages=pages)
