@@ -1,17 +1,20 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from parsers import wildberries_parser
 
-from products.services.create_parsed import CreateParsedProducts
+from products.exceptions import QueryIsRequired  
+from products.infrastructure import ORMProductRepository
+from products.use_cases import ProductParserUseCase
+
+from parsers import wildberries_parser
 
 class ProductsView(APIView):
     def post(self, request):
-        query = request.query_params.get("query")
-        pages = request.query_params.get("pages", 1)
-        if not query:
-            return Response({'error': 'Query and pages are required'}, status=status.HTTP_400_BAD_REQUEST)
-        create_parsed_products = CreateParsedProducts(parser=wildberries_parser)
-        create_parsed_products.create(query=query, pages=int(pages))
+        product_parser = ProductParserUseCase(parser=wildberries_parser, repo=ORMProductRepository())
         
-        return Response({'message': 'Product created successfully'}, status=status.HTTP_201_CREATED)
+        try:
+            product_parser.execute(request)
+        except QueryIsRequired:
+            return Response({'error': 'Query param is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        return Response({'message': 'Products parsed and created successfully'}, status=status.HTTP_201_CREATED)
