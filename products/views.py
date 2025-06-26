@@ -15,7 +15,7 @@ from products.filters import ProductFilter
 
 from parsers import wildberries_parser
 
-class ProductsView(APIView):
+class ParseProductsView(APIView):
     def post(self, request):
         product_parser = ProductParserUseCase(parser=wildberries_parser, repo=ORMProductRepository())
         
