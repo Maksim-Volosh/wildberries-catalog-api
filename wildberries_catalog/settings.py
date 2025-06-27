@@ -1,12 +1,11 @@
+import os
 from pathlib import Path
-
-import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config.SECRET_KEY
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = config.DEBUG
+DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = ["*"]
 
@@ -60,11 +59,11 @@ WSGI_APPLICATION = 'wildberries_catalog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config.POSTGRES_DB,
-        'USER': config.POSTGRES_USER,
-        'PASSWORD': config.POSTGRES_PASSWORD,
-        'HOST': config.POSTGRES_HOST,
-        'PORT': config.POSTGRES_PORT
+        'NAME': os.getenv("POSTGRES_DB"),
+        'USER': os.getenv("POSTGRES_USER"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
+        'HOST': os.getenv("POSTGRES_HOST"),
+        'PORT': os.getenv("POSTGRES_PORT"),
     }
 }
 
