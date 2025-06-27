@@ -140,8 +140,8 @@ This is a Django REST framework API for working with Wildberries products using 
 
 ## Use cases
 
-- `GetFilteredProductsUseCase`: Get products by query and filters
-- `ProductParserUseCase`: Parse products from Wildberries API and save to database
+- `FilterProductsUseCase`: Get products by query and filters
+- `ParseProductsUseCase`: Parse products from Wildberries API and save to database
 
 ## Exceptions
 

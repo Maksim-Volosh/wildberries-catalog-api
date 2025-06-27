@@ -1,7 +1,7 @@
 from core.interfaces import ICache, IProductRepository
 
 
-class GetFilteredProductsUseCase:
+class FilterProductsUseCase:
     def __init__(self, repo: IProductRepository, cache: ICache, cache_key_maker):
         self.repo = repo
         self.cache = cache

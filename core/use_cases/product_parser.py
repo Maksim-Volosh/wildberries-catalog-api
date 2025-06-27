@@ -1,10 +1,10 @@
 from typing import Literal
 
 from core.interfaces import IParserProducts, IProductRepository
-from products.exceptions import NotFoundByQuery, QueryIsRequired
+from core.exceptions import NotFoundByQuery, QueryIsRequired
 
 
-class ProductParserUseCase:
+class ParseProductsUseCase:
     def __init__(self, parser: IParserProducts, repo: IProductRepository):
         self.parser: IParserProducts = parser
         self.repo: IProductRepository = repo

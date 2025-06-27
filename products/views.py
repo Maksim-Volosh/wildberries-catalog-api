@@ -2,15 +2,14 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from parsers import wildberries_parser
-from products.exceptions import NotFoundByQuery, QueryIsRequired
-from products.infrastructure import DjangoCache, ORMProductRepository
+from core.exceptions import NotFoundByQuery, QueryIsRequired
+from products.di.container import ProductContainer
 from products.serializers import ParseProductInputSerializer
-from products.services.cache_key_maker import make_cache_key
-from products.use_cases import GetFilteredProductsUseCase, ProductParserUseCase
 
 
-class ParseProductsView(APIView):
+container = ProductContainer()
+
+class ParseProductsAPIView(APIView):
     def post(self, request):
         serializer = ParseProductInputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -18,10 +17,7 @@ class ParseProductsView(APIView):
         query: str = serializer.validated_data["query"] # type: ignore
         pages: int = serializer.validated_data["pages"] # type: ignore
         
-        use_case = ProductParserUseCase(
-            parser=wildberries_parser,
-            repo=ORMProductRepository()
-        )
+        use_case = container.get_parse_products_use_case()
         
         try:
             use_case.execute(query, pages)
@@ -35,11 +31,7 @@ class ParseProductsView(APIView):
 
 class ProductListAPIView(APIView):
     def get(self, request):
-        use_case = GetFilteredProductsUseCase(
-            repo=ORMProductRepository(),
-            cache=DjangoCache(),
-            cache_key_maker=make_cache_key
-        )
+        use_case = container.get_filter_products_use_case()
         data = use_case.execute(request)
         if not data:
             return Response({'error': 'Products not found'}, status=status.HTTP_404_NOT_FOUND)
