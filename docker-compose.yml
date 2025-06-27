@@ -12,11 +12,32 @@ services:
       - "8000:8000"
     depends_on:
       - redis
+      - db
     environment:
       - DJANGO_SETTINGS_MODULE=wildberries_catalog.settings
+      - POSTGRES_DB=wildberries_db
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
 
   # Сервис для Redis
   redis:
     image: redis:latest
     ports:
       - "6379:6379"
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: wildberries_db
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
