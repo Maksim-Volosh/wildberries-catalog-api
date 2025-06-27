@@ -1,19 +1,12 @@
-from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView
-from rest_framework.response import Response
 from rest_framework import status
-
-from django_filters.rest_framework import DjangoFilterBackend
-
-from products.exceptions import QueryIsRequired, NotFoundByQuery
-from products.infrastructure import ORMProductRepository
-from products.models import Product
-from products.serializers import ProductSerializer
-from products.use_cases import ProductParserUseCase
-from products.filters import ProductFilter
-
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from parsers import wildberries_parser
+from products.exceptions import NotFoundByQuery, QueryIsRequired
+from products.infrastructure import ORMProductRepository, DjangoCache
+from products.use_cases import GetFilteredProductsUseCase, ProductParserUseCase
+
 
 class ParseProductsView(APIView):
     def post(self, request):
@@ -31,8 +24,13 @@ class ParseProductsView(APIView):
         return Response({'message': 'Products parsed and created successfully'}, status=status.HTTP_201_CREATED)
 
 
-class ProductListAPIView(ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = ProductFilter
+class ProductListAPIView(APIView):
+    def get(self, request):
+        use_case = GetFilteredProductsUseCase(
+            repo=ORMProductRepository(),
+            cache=DjangoCache(),
+        )
+        data = use_case.execute(request)
+        if not data:
+            return Response({'error': 'Products not found'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(data)
