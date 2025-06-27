@@ -5,18 +5,23 @@ from rest_framework.views import APIView
 from parsers import wildberries_parser
 from products.exceptions import NotFoundByQuery, QueryIsRequired
 from products.infrastructure import DjangoCache, ORMProductRepository
+from products.serializers import ParseProductInputSerializer
 from products.use_cases import GetFilteredProductsUseCase, ProductParserUseCase
 
 
 class ParseProductsView(APIView):
     def post(self, request):
+        serializer = ParseProductInputSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        query: str = serializer.validated_data["query"] # type: ignore
+        pages: int = serializer.validated_data["pages"] # type: ignore
+        
         use_case = ProductParserUseCase(
             parser=wildberries_parser,
             repo=ORMProductRepository()
         )
         
-        query = request.query_params.get("query")
-        pages = request.query_params.get("pages", 1)
         try:
             use_case.execute(query, pages)
         except QueryIsRequired:
