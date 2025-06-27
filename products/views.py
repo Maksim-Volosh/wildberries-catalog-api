@@ -6,6 +6,7 @@ from parsers import wildberries_parser
 from products.exceptions import NotFoundByQuery, QueryIsRequired
 from products.infrastructure import DjangoCache, ORMProductRepository
 from products.serializers import ParseProductInputSerializer
+from products.services.cache_key_maker import make_cache_key
 from products.use_cases import GetFilteredProductsUseCase, ProductParserUseCase
 
 
@@ -37,6 +38,7 @@ class ProductListAPIView(APIView):
         use_case = GetFilteredProductsUseCase(
             repo=ORMProductRepository(),
             cache=DjangoCache(),
+            cache_key_maker=make_cache_key
         )
         data = use_case.execute(request)
         if not data:
