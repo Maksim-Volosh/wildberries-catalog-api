@@ -1,7 +1,9 @@
 from typing import Literal
-from core.interfaces.parser import IParserProducts
+
 from core.interfaces.product import IProductRepository
+from products.filters import ProductFilter
 from products.models import Product
+from products.serializers import ProductSerializer
 
 
 class ORMProductRepository(IProductRepository):
@@ -40,3 +42,8 @@ class ORMProductRepository(IProductRepository):
             )
             
         return True
+    
+    def get_filtered(self, request):
+        queryset = Product.objects.all()
+        filtered_qs = ProductFilter(request.GET, queryset=queryset).qs
+        return ProductSerializer(filtered_qs, many=True).data
