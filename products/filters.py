@@ -1,5 +1,7 @@
 import django_filters
+
 from products.models import Product
+
 
 class ProductFilter(django_filters.FilterSet):
     min_price = django_filters.NumberFilter(field_name='discount_price', lookup_expr='gte')

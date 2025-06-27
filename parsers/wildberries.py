@@ -1,5 +1,6 @@
 import math
 from typing import Any
+
 import requests
 
 from core.interfaces.parser import IParserProducts

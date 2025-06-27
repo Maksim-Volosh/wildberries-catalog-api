@@ -1,6 +1,7 @@
 import hashlib
 from urllib.parse import parse_qsl
 
+
 def make_cache_key(request):
     allowed_filters = {
         "min_price", "max_price",

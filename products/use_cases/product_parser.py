@@ -2,8 +2,7 @@ from typing import Literal
 
 from core.interfaces.parser import IParserProducts
 from core.interfaces.product import IProductRepository
-
-from products.exceptions import QueryIsRequired, NotFoundByQuery
+from products.exceptions import NotFoundByQuery, QueryIsRequired
 
 
 class ProductParserUseCase:

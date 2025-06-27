@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 
 from parsers import wildberries_parser
 from products.exceptions import NotFoundByQuery, QueryIsRequired
-from products.infrastructure import ORMProductRepository, DjangoCache
+from products.infrastructure import DjangoCache, ORMProductRepository
 from products.use_cases import GetFilteredProductsUseCase, ProductParserUseCase
 
 
