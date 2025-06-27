@@ -16,7 +16,7 @@ class ProductParserUseCase:
             raise QueryIsRequired("Query param is required")
         products = self.parser.get_products(query=query, pages=pages)
         if products:
-            self.repo.create_products(products)
+            self.repo.create_or_update_products(products)
         else:
             raise NotFoundByQuery("Products not found by query")
 
