@@ -1,7 +1,6 @@
 from typing import Literal
 
-from core.interfaces.parser import IParserProducts
-from core.interfaces.product import IProductRepository
+from core.interfaces import IParserProducts, IProductRepository
 from products.exceptions import NotFoundByQuery, QueryIsRequired
 
 

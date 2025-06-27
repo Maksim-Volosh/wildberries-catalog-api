@@ -1,6 +1,6 @@
 from typing import Literal
 
-from core.interfaces.product import IProductRepository
+from core.interfaces.product_repository import IProductRepository
 from products.filters import ProductFilter
 from products.models import Product
 from products.serializers import ProductSerializer

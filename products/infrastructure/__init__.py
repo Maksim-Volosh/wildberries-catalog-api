@@ -1,4 +1,4 @@
 __all__ = ["ORMProductRepository", "DjangoCache",]
 
-from .product_repo import ORMProductRepository
 from .redis_cache import DjangoCache
+from .repositories.product_repository import ORMProductRepository

@@ -10,14 +10,17 @@ from products.use_cases import GetFilteredProductsUseCase, ProductParserUseCase
 
 class ParseProductsView(APIView):
     def post(self, request):
-        product_parser = ProductParserUseCase(parser=wildberries_parser, repo=ORMProductRepository())
+        use_case = ProductParserUseCase(
+            parser=wildberries_parser,
+            repo=ORMProductRepository()
+        )
         
         query = request.query_params.get("query")
         pages = request.query_params.get("pages", 1)
         try:
-            product_parser.execute(query, pages)
+            use_case.execute(query, pages)
         except QueryIsRequired:
-            return Response({'error': 'Query param is required'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': "'query' parameter is required"}, status=status.HTTP_400_BAD_REQUEST)
         except NotFoundByQuery:
             return Response({'error': 'Products not found by query'}, status=status.HTTP_404_NOT_FOUND)
         

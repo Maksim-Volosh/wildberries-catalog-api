@@ -1,5 +1,4 @@
-from core.interfaces.cache import ICache
-from core.interfaces.product import IProductRepository
+from core.interfaces import ICache, IProductRepository
 from products.services.cache_key_maker import make_cache_key
 
 
