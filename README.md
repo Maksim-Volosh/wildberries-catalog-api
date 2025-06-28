@@ -8,6 +8,7 @@ This is a Django REST framework API for working with Wildberries products using 
 - **Database**: Save or update products to the database with hashmap
 - **Filter**: Filter products by price, rating, feedbacks and name
 - **Cache**: Cache products for 5 minutes
+- **Testing**: Unit tests for services and use cases
 
 ## Stack
 
@@ -19,6 +20,7 @@ This is a Django REST framework API for working with Wildberries products using 
 - **Docker Compose**: Tool for defining and running multi-container Docker applications
 - **PostgreSQL**: Open source relational database management system
 - **Redis**: Open source, in-memory data structure store
+- **Pytest**: Testing framework for Python
 
 ## Installation
 
@@ -34,6 +36,7 @@ This is a Django REST framework API for working with Wildberries products using 
     POSTGRES_PORT=5432
     ```
 3. Build and run container: ```docker-compose up --build```
+4. Run tests in root directory: ```pytest```
 4. Create superuser: ```python manage.py createsuperuser```
 5. Open in browser: `http://localhost:8000/admin/`
 
@@ -148,4 +151,7 @@ This is a Django REST framework API for working with Wildberries products using 
 - `QueryIsRequired`: Query param is required
 - `NotFoundByQuery`: Products not found by query
 
+## Testing
+
+- Run unit tests: ```pytest tests/```
 
