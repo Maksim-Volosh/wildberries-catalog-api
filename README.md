@@ -1,8 +1,54 @@
-# Wildberries Catalog API
+# 🛍️ Wildberries Catalog API
+
+[![Abblix OIDC Server](https://i.imgur.com/BESSBGm.png)](https://github.com/Maksim-Volosh/wildberries-catalog-api)
+
+
+[![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-4.2-green?logo=django)](https://www.djangoproject.com/)
+[![DRF](https://img.shields.io/badge/DRF-3.x-red?logo=django)](https://www.django-rest-framework.org/)
+[![Docker](https://img.shields.io/badge/Docker-ready-blue?logo=docker)](https://www.docker.com/)
+[![Docker Compose](https://img.shields.io/badge/Docker--Compose-ready-blue?logo=docker)](https://docs.docker.com/compose/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?logo=postgresql)](https://www.postgresql.org/)
+[![Redis](https://img.shields.io/badge/Redis-7.2-red?logo=redis)](https://redis.io/)
+[![Pytest](https://img.shields.io/badge/Pytest-tested-brightgreen?logo=pytest)](https://docs.pytest.org/)
+[![Architecture](https://img.shields.io/badge/Architecture-Clean--Architecture-yellowgreen)](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)
+[![License](https://img.shields.io/github/license/Maksim-Volosh/wildberries-catalog-api)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/Maksim-Volosh/wildberries-catalog-api?color=purple)](https://github.com/Maksim-Volosh/wildberries-catalog-api/commits/main)
+[![Repo Size](https://img.shields.io/github/repo-size/Maksim-Volosh/wildberries-catalog-api)](https://github.com/Maksim-Volosh/wildberries-catalog-api)
+[![Open Issues](https://img.shields.io/github/issues/Maksim-Volosh/wildberries-catalog-api?label=issues)](https://github.com/Maksim-Volosh/wildberries-catalog-api/issues)
+[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)](https://github.com/Maksim-Volosh/wildberries-catalog-api/pulls)
+[![Made with ❤️by Maksim](https://img.shields.io/badge/made%20with-%E2%9D%A4-red)](https://github.com/Maksim-Volosh)
+
+⭐ Star us on GitHub — it motivates us a lot!
+
+[![Share on X](https://img.shields.io/badge/share-000000?logo=x&logoColor=white)](https://x.com/intent/tweet?text=Check%20out%20this%20project%20on%20GitHub:%20https://github.com/Maksim-Volosh/wildberries-catalog-api%20%23Django%20%23API%20%23CleanArchitecture)
+[![Share on Facebook](https://img.shields.io/badge/share-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/Maksim-Volosh/wildberries-catalog-api)
+[![Share on LinkedIn](https://img.shields.io/badge/share-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/Maksim-Volosh/wildberries-catalog-api)
+[![Share on Reddit](https://img.shields.io/badge/share-FF4500?logo=reddit&logoColor=white)](https://www.reddit.com/submit?title=Check%20out%20this%20project%20on%20GitHub:%20https://github.com/Maksim-Volosh/wildberries-catalog-api)
+[![Share on Telegram](https://img.shields.io/badge/share-0088CC?logo=telegram&logoColor=white)](https://t.me/share/url?url=https://github.com/Maksim-Volosh/wildberries-catalog-api&text=Check%20out%20this%20project%20on%20GitHub)
+
+
+
+## 📚 Table of Contents
+
+- [🎓 About](#-about)
+- [📌 Features](#-features)
+- [🧱 Tech Stack](#-tech-stack)
+- [🚀 Installation](#-installation)
+- [🎯 Endpoints](#-endpoints)
+  - [POST /api/v1/parse_products/](#post-apiv1parse_products-parse-products-by-query-for-pages-and-save-to-database)
+  - [GET /api/v1/products/](#get-apiv1products-get-products-by-filters)
+- [🧩 Models](#models)
+- [📦 Serializers](#serializers)
+- [🧠 Use Cases](#use-cases)
+- [⚠️ Exceptions](#exceptions)
+- [✅ Testing](#testing)
+
+## 🎓 About
 
 This is a Django REST framework API for working with Wildberries products using Clean Architecture (Onion Architecture). The API provides endpoints for parsing products from Wildberries by query, saving or updating products to the database, filtering products by price, rating, feedbacks and name, as well as caching products for 5 minutes.
 
-## Features
+## 📌 Features
 
 - **Parser**: Parse products from Wildberries by query and save to database
 - **Database**: Save or update products to the database with hashmap
@@ -10,22 +56,25 @@ This is a Django REST framework API for working with Wildberries products using 
 - **Cache**: Cache products for 5 minutes
 - **Testing**: Unit tests for services and use cases
 
-## Stack
+## 🧱 Tech Stack
 
-- **Python 3.12**: Programming language
-- **Django**: Python web framework
-- **Django REST framework**: Python framework for building APIs
-- **Django-filter**: Python package for adding filters to Django views
-- **Docker**: Containerization platform
-- **Docker Compose**: Tool for defining and running multi-container Docker applications
-- **PostgreSQL**: Open source relational database management system
-- **Redis**: Open source, in-memory data structure store
-- **Pytest**: Testing framework for Python
+| Technology         | Description                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+| 🐍 Python 3.12      | General-purpose programming language                                        |
+| 🌿 Django           | High-level Python web framework for rapid development                      |
+| 🚦 Django REST Framework | Toolkit for building Web APIs with Django                          |
+| 🔍 Django-filter    | App to add filtering support to Django REST Framework                      |
+| 🐳 Docker           | Platform for containerizing and deploying applications                     |
+| 🧩 Docker Compose   | Tool for defining and running multi-container Docker applications           |
+| 🐘 PostgreSQL       | Advanced open-source relational database system                             |
+| 🔴 Redis            | In-memory key-value store used for caching                                 |
+| 🧪 Pytest           | Framework for writing simple and scalable test cases in Python             |
 
-## Installation
 
-1. Clone repository: ```git clone https://github.com/Maksim-Volash/wildberries-catalog.git```
-2. Create `.env` in root directory and set environment variables: 
+## 🚀 Installation
+
+1. 🔁 Clone repository: ```git clone https://github.com/Maksim-Volash/wildberries-catalog.git```
+2. 📄 Create `.env` in root directory and set environment variables: 
     ```.env
     SECRET_KEY = "SECRET_KEY"
     DEBUG = True
@@ -35,12 +84,12 @@ This is a Django REST framework API for working with Wildberries products using 
     POSTGRES_HOST=db
     POSTGRES_PORT=5432
     ```
-3. Build and run container: ```docker-compose up --build```
-4. Run tests in root directory: ```pytest```
-4. Create superuser: ```python manage.py createsuperuser```
-5. Open in browser: `http://localhost:8000/admin/`
+3. 🐳 Build and run container: ```docker-compose up --build```
+4. 🧪 Run tests in root directory: ```pytest```
+4. 👤 Create superuser: ```python manage.py createsuperuser```
+5. 🌍 Open in browser: `http://localhost:8000/admin/`
 
-## Endpoints
+## 🎯 Endpoints
 
 ### `POST /api/v1/parse_products/`: Parse products by query for pages and save to database
 #### Example:
@@ -153,5 +202,5 @@ This is a Django REST framework API for working with Wildberries products using 
 
 ## Testing
 
-- Run unit tests: ```pytest tests/```
+- Run unit tests: ```pytest```
 
