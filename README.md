@@ -75,19 +75,26 @@ This is a Django REST framework API for working with Wildberries products using 
 
 1. 🔁 Clone repository: ```git clone https://github.com/Maksim-Volash/wildberries-catalog.git```
 2. 📄 Create `.env` in root directory and set environment variables: 
-    ```.env
-    SECRET_KEY = "SECRET_KEY"
-    DEBUG = True
-    POSTGRES_DB=wildberries_db
-    POSTGRES_USER=postgres_user
-    POSTGRES_PASSWORD=postgres_password
-    POSTGRES_HOST=db
-    POSTGRES_PORT=5432
-    ```
+      ```.env
+      SECRET_KEY = "SECRET_KEY"
+      DEBUG = True
+      POSTGRES_DB=wildberries_db
+      POSTGRES_USER=postgres_user
+      POSTGRES_PASSWORD=postgres_password
+      POSTGRES_HOST=db
+      POSTGRES_PORT=5432
+      ```
 3. 🐳 Build and run container: ```docker-compose up --build```
-4. 🧪 Run tests in root directory: ```pytest```
-4. 👤 Create superuser: ```python manage.py createsuperuser```
-5. 🌍 Open in browser: `http://localhost:8000/admin/`
+4. 🔁 Find container name: ```docker ps```:
+     ```
+     CONTAINER ID   IMAGE          COMMAND       NAMES
+     abcd1234ef56   myapp-image    "uvicorn ..." my_running_container
+     ```
+5. 🧪 Run pytest by container name:
+     ```docker exec -it my_running_container pytest -v```
+6. 👤 Create superuser in docker by container name:
+     ```docker exec -it wildberries-catalog-api_web_1 python3 manage.py createsuperuser```
+7. 🌍 Open in browser: `http://localhost:8000/admin/`
 
 ## 🎯 Endpoints
 
