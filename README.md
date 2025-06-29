@@ -93,7 +93,7 @@ This is a Django REST framework API for working with Wildberries products using 
 5. 🧪 Run pytest by container name:
      ```docker exec -it my_running_container pytest -v```
 6. 👤 Create superuser in docker by container name:
-     ```docker exec -it wildberries-catalog-api_web_1 python3 manage.py createsuperuser```
+     ```docker exec -it my_running_container python3 manage.py createsuperuser```
 7. 🌍 Open in browser: `http://localhost:8000/admin/`
 
 ## 🎯 Endpoints
