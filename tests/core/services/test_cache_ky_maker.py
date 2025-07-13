@@ -1,40 +1,40 @@
 import unittest
-from unittest.mock import Mock
-from core.services import make_cache_key
+from core.services.build_cache_key import build_cache_key
 
 
-class TestMakeCacheKey(unittest.TestCase):
+class TestBuildCacheKey(unittest.TestCase):
 
-    def test_make_cache_key_with_allowed_filters(self):
-        mock_request = Mock()
-        mock_request.META = {
-            'QUERY_STRING': 'min_price=100&max_price=500&name=laptop'
+    def test_with_params(self):
+        params = {
+            'min_price': '100',
+            'max_price': '500',
+            'name': 'laptop'
         }
-        key = make_cache_key(mock_request)
+        key = build_cache_key(params)
         self.assertTrue(key.startswith('products:'))
-        self.assertEqual(len(key), len('products:') + 32)  # md5 — это 32 символа
+        self.assertEqual(len(key), len('products:') + 32)  # md5 hash
 
-    def test_make_cache_key_with_disallowed_filters(self):
-        mock_request = Mock()
-        mock_request.META = {
-            'QUERY_STRING': 'foo=bar&baz=qux'
-        }
-        key = make_cache_key(mock_request)
+    def test_empty_params(self):
+        params = {}
+        key = build_cache_key(params)
         self.assertEqual(key, 'products:base')
 
-    def test_make_cache_key_mixed_filters(self):
-        mock_request = Mock()
-        mock_request.META = {
-            'QUERY_STRING': 'foo=bar&min_price=300&max_rating=5'
+    def test_same_params_order_does_not_matter(self):
+        params1 = {
+            'min_price': '100',
+            'max_price': '500'
         }
-        key = make_cache_key(mock_request)
-        self.assertTrue(key.startswith('products:'))
-
-    def test_make_cache_key_empty_query(self):
-        mock_request = Mock()
-        mock_request.META = {
-            'QUERY_STRING': ''
+        params2 = {
+            'max_price': '500',
+            'min_price': '100'
         }
-        key = make_cache_key(mock_request)
-        self.assertEqual(key, 'products:base')
+        key1 = build_cache_key(params1)
+        key2 = build_cache_key(params2)
+        self.assertEqual(key1, key2)
 
+    def test_different_params_give_different_keys(self):
+        params1 = {'min_price': '100'}
+        params2 = {'min_price': '200'}
+        key1 = build_cache_key(params1)
+        key2 = build_cache_key(params2)
+        self.assertNotEqual(key1, key2)
