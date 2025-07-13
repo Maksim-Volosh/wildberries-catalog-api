@@ -7,7 +7,7 @@ from products.serializers import ProductSerializer
 
 
 class ORMProductRepository(IProductRepository):
-    def create_or_update_products(self, products: list[dict]) -> Literal[True]:
+    def create_or_update(self, products: list[dict]) -> Literal[True]:
         product_ids = [pr["id"] for pr in products]
         
         existing_products = Product.objects.filter(id__in=product_ids)

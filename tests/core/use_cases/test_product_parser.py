@@ -19,7 +19,7 @@ class TestParseProductsUseCase(unittest.TestCase):
         use_case.execute(query='query', pages=1)
 
         parser.get_products.assert_called_once_with(query='query', pages=1)
-        repo.create_or_update_products.assert_called_once_with(data)
+        repo.create_or_update.assert_called_once_with(data)
         
     def test_without_data(self):
         data = []
@@ -32,7 +32,7 @@ class TestParseProductsUseCase(unittest.TestCase):
             use_case.execute(query='query', pages=1)
 
         parser.get_products.assert_called_once_with(query='query', pages=1)
-        repo.create_or_update_products.assert_not_called()
+        repo.create_or_update.assert_not_called()
         
     def test_without_query(self):
         parser = Mock()
@@ -43,5 +43,5 @@ class TestParseProductsUseCase(unittest.TestCase):
             use_case.execute(query='', pages=1)
 
         parser.get_products.assert_not_called()
-        repo.create_or_update_products.assert_not_called()
+        repo.create_or_update.assert_not_called()
         

@@ -1,12 +1,12 @@
 import math
-from typing import Any
 
 import requests
 
-from core.interfaces.parser import IParserProducts
+from core.exceptions import NoAccessToWildberriesAPI
+from core.interfaces.parser import IProductParser
 
 
-class WildberriesParser(IParserProducts):
+class WildberriesParser(IProductParser):
     def __init__(self, url):
         self.url = url
         
@@ -15,7 +15,9 @@ class WildberriesParser(IParserProducts):
         for page in range(1, pages + 1):
             response = self._response(query, page)
             if response.status_code != 200:
-                raise Exception("Invalid response")
+                raise NoAccessToWildberriesAPI(
+                    f"Wildberries API returned invalid response: {response.status_code} {response.reason}"
+                )
             
             data = response.json()
             parsed_products: list[dict] = self._parse_products(data)

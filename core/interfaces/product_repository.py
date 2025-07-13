@@ -4,7 +4,7 @@ from typing import Any, Literal
 
 class IProductRepository(ABC):
     @abstractmethod
-    def create_or_update_products(self, products: list[dict]) -> Literal[True]:
+    def create_or_update(self, products: list[dict]) -> Literal[True]:
         ...
         
     @abstractmethod

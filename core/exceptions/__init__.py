@@ -1,6 +1,7 @@
 __all__ = [
     'QueryIsRequired',
     'NotFoundByQuery',
+    'NoAccessToWildberriesAPI',
 ]
-from .query_exception import QueryIsRequired
-from .not_found import NotFoundByQuery
+from .query import QueryIsRequired, NotFoundByQuery
+from .wildberries import NoAccessToWildberriesAPI

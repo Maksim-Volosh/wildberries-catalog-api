@@ -1,8 +1,8 @@
 __all__ = [
-    "IParserProducts",
+    "IProductParser",
     "IProductRepository",
     "ICache",
 ]
 from .cache import ICache
-from .parser import IParserProducts
+from .parser import IProductParser
 from .product_repository import IProductRepository

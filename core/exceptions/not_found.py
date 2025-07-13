@@ -1,2 +1,0 @@
-class NotFoundByQuery(Exception):
-    pass

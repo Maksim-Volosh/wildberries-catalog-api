@@ -3,4 +3,4 @@ __all__ = [
     'FilterProductsUseCase'
 ]
 from .product_parser import ParseProductsUseCase
-from .get_filtered_products import FilterProductsUseCase
+from .filtered_products import FilterProductsUseCase
