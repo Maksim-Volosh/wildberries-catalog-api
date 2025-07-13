@@ -8,5 +8,5 @@ class IProductRepository(ABC):
         ...
         
     @abstractmethod
-    def get_filtered(self, request) -> Any:
+    def get_filtered(self, filtered_params: dict) -> Any:
         ...

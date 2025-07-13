@@ -43,7 +43,7 @@ class ORMProductRepository(IProductRepository):
             
         return True
     
-    def get_filtered(self, request):
+    def get_filtered(self, filtered_params: dict):
         queryset = Product.objects.all()
-        filtered_qs = ProductFilter(request.GET, queryset=queryset).qs
+        filtered_qs = ProductFilter(data=filtered_params, queryset=queryset).qs
         return ProductSerializer(filtered_qs, many=True).data

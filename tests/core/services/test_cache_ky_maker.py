@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from core.services.cache_key_maker import make_cache_key
+from core.services import make_cache_key
 
 
 class TestMakeCacheKey(unittest.TestCase):

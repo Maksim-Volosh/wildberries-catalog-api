@@ -6,7 +6,6 @@ from core.exceptions import NotFoundByQuery, QueryIsRequired
 from products.di.container import ProductContainer
 from products.serializers import ParseProductInputSerializer
 
-
 container = ProductContainer()
 
 class ParseProductsAPIView(APIView):
@@ -32,7 +31,11 @@ class ParseProductsAPIView(APIView):
 class ProductListAPIView(APIView):
     def get(self, request):
         use_case = container.get_filter_products_use_case()
-        data = use_case.execute(request)
+        
+        params_parser = container.get_extract_allowed_filters()
+        filtered_params = params_parser(request)
+        
+        data = use_case.execute(filtered_params)
         if not data:
             return Response({'error': 'Products not found'}, status=status.HTTP_404_NOT_FOUND)
         return Response(data)
