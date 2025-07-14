@@ -54,6 +54,7 @@ This is a Django REST framework API for working with Wildberries products using 
 - **Database**: Save or update products to the database with hashmap
 - **Filter**: Filter products by price, rating, feedbacks and name
 - **Cache**: Cache products for 5 minutes
+- **Rate Limiting**: Limit requests to API endpoints to prevent abuse (throttling)
 - **Testing**: Unit tests for services and use cases
 
 ## 🧱 Tech Stack
