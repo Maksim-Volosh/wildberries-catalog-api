@@ -9,7 +9,10 @@ from products.serializers import ParseProductInputSerializer
 container = ProductContainer()
 
 class ParseProductsAPIView(APIView):
+    throttle_scope = 'parse_products'
+    
     def post(self, request):
+        
         serializer = ParseProductInputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -29,6 +32,8 @@ class ParseProductsAPIView(APIView):
 
 
 class ProductListAPIView(APIView):
+    throttle_scope = 'products'
+    
     def get(self, request):
         use_case = container.get_filter_products_use_case()
         
