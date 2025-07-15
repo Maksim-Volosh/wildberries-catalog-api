@@ -55,7 +55,9 @@ This is a Django REST framework API for working with Wildberries products using 
 - **Filter**: Filter products by price, rating, feedbacks and name
 - **Cache**: Cache products for 5 minutes
 - **Rate Limiting**: Limit requests to API endpoints to prevent abuse (throttling)
-- **Testing**: Unit tests for services and use cases
+- **Unit Testing**: Unit tests for services and use cases
+- **Integration Testing**: Integration tests for API endpoints
+- **e2e Testing**: End-to-end tests for API endpoints
 
 ## 🧱 Tech Stack
 
@@ -91,11 +93,13 @@ This is a Django REST framework API for working with Wildberries products using 
      CONTAINER ID   IMAGE          COMMAND       NAMES
      abcd1234ef56   myapp-image    "uvicorn ..." my_running_container
      ```
-5. 🧪 Run pytest by container name:
-     ```docker exec -it my_running_container pytest -v```
-6. 👤 Create superuser in docker by container name:
+5. 🧪 Run unit and integration tests by container name::
+     ```docker exec -it my_running_container pytest -v -m "not e2e"```
+6. 🧪 Run e2e tests by container name::
+     ```docker exec -it my_running_container pytest -v -m "e2e"```
+7. 👤 Create superuser in docker by container name:
      ```docker exec -it my_running_container python3 manage.py createsuperuser```
-7. 🌍 Open in browser: `http://localhost:8000/admin/`
+8. 🌍 Open in browser: `http://localhost:8000/admin/`
 
 ## 🎯 Endpoints
 
