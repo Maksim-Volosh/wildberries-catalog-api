@@ -11,6 +11,31 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: wildberries_db
+          POSTGRES_USER: postgres_user
+          POSTGRES_PASSWORD: postgres_password
+        ports:
+          - 5432:5432
+        # Добавим healthcheck — так Actions дождётся БД
+        options: >-
+          --health-cmd="pg_isready -U postgres_user"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      POSTGRES_DB: wildberries_db
+      POSTGRES_USER: postgres_user
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PORT: 5432
+      SECRET_KEY: test
+      DEBUG: True
+
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v3
@@ -25,15 +50,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 🔑 Create .env file
+      - name: 🕒 Wait for PostgreSQL
         run: |
-          echo "SECRET_KEY=test" >> .env
-          echo "DEBUG=True" >> .env
-          echo "POSTGRES_DB=wildberries_db" >> .env
-          echo "POSTGRES_USER=postgres_user" >> .env
-          echo "POSTGRES_PASSWORD=postgres_password" >> .env
-          echo "POSTGRES_HOST=localhost" >> .env
-          echo "POSTGRES_PORT=5432" >> .env
+          echo "Waiting for PostgreSQL to be ready..."
+          sleep 10
+
+      - name: 🗄️ Apply migrations
+        run: |
+          python manage.py migrate
 
       - name: ✅ Run tests
         run: |
